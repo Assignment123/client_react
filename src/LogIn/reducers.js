@@ -38,7 +38,7 @@ function loginReducer(state = initialState, action) {
 
   
 
-    case LOGGED_IN:
+    case LOGGED_IN: 
      let newState={
         ...state,
         requesting: false,
@@ -49,9 +49,9 @@ function loginReducer(state = initialState, action) {
         email:'email',
         shouldRedirect: true,
         userInfo: action.user.userInfo,
-      };
+      }; 
       
-    return newState;
+    return newState; 
 
     default:
       return state;

@@ -8,7 +8,6 @@ class Admin extends Component {
 
   render() {
     const { activeItem } = this.state
-    console.log("sdbs");
     return (
       <Menu size='large' vertical>
        <Menu.Item>

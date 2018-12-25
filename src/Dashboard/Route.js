@@ -4,35 +4,48 @@ import Admin from './AdminRoute/Admin';
 import User from './UserRoute/User';
 import General from './GeneralRoute/General';
 import SigninForm from '../LogIn/index';
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom"; 
+import { Link } from 'react-router-dom'
 import AuthenticationComponent from './Components/AuthenticationComponent';
 
-
 class MainRoute extends Component {
-    
+    componentWillMount() {
+        const { userInfo } = this.props;
+        if (!userInfo) {
+
+          this.props.history.push("/login");
+        }
+        console.log(localStorage.getItem('token'));
+      }
+    componentWillReceiveProps = (nextProps) => {
+        // console.log(nextProps, "user DEtail")
+    }
     render(){
+    const { userInfo } = this.props;
+
         return(
     <Router>
         <div>
         <Switch>
             <Route exact path="/login" component={SigninForm} />
         </Switch>
-            <AuthenticationComponent>
-                 <Route exact path="/admin" component={Admin} />
-             </AuthenticationComponent>
-
-             {/* <AuthenticationComponent> */}
+        <AuthenticationComponent>
+        <Route exact path="/admin" component={Admin} /> 
+        </AuthenticationComponent>
 
             <Route exact path="/user" component={User} />
-            {/* </AuthenticationComponent> */}
 
-            {/* <AuthenticationComponent> */}
 
             <Route exact path="/general" component={General} />
-            {/* </AuthenticationComponent> */}
             </div>
     </Router>
     )
     }
 }
+  const mapStateToProps = (state) => ({
+    userInfo: state.userInfo
+  }) 
 
-export default MainRoute;
+
+export default connect(mapStateToProps, null)(MainRoute);
